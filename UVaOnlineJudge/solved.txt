@@ -1,0 +1,14 @@
+Solved problems (descending timestamp)
+10855, 10038, 119, 11727, 11498, 11172
+From 2012: 907, 10300, 10071
+
+TODO:
+907 Winterim Backpacking Trip
+10920 Spiral Tap
+11340 Newspaper
+11926 Multitasking
+514 Rails
+10258 Contest Scoreboard
+12356 Army Buddies
+
+Re-read 11581 Grid Successors (submitted AC)
