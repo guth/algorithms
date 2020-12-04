@@ -2,11 +2,11 @@ import java.util.*;
 import java.io.*;
 import java.text.*;
 
-class Structs
+class Main
 {
     public static void main(String[] args) throws Exception
     {
-        Structs m = new Structs();
+        Main m = new Main();
         m.go();
     }
 
