@@ -28,6 +28,10 @@ class Main
         PriorityQueue<Integer> priorityQueue = new PriorityQueue<Integer>();
 
         BitSet bitSet = new BitSet(10);
+
+        // Regexes:
+        String abc = "abc";
+        boolean match = abc.matches("[a-c][a-c][a-c]");
     }
 
     public class Team implements Comparable<Team>
