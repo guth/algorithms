@@ -77,7 +77,7 @@ class Day2
             }
         }
 
-        int partB = 0;
+        int partTwo = 0;
         for(int i=0; i<N; i++)
         {
             if(
@@ -86,11 +86,11 @@ class Day2
                 (password[i].charAt(low[i]-1) == chars[i] || password[i].charAt(high[i]-1) == chars[i])
             )
             {
-                partB++;
+                partTwo++;
             }
         }
 
-        System.out.println("Part A: " + numValid);
-        System.out.println("Part B: " + partB);
+        System.out.println("Part One: " + numValid);
+        System.out.println("Part Two: " + partTwo);
     }
 }

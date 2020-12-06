@@ -58,9 +58,9 @@ class Day3
             }
         }
 
-        System.out.println("Part A: " + count);
+        System.out.println("Part One: " + count);
 
-        // Part B: Check multiple slopes
+        // Part Two: Check multiple slopes
         int[] dc = new int[] {1, 3, 5, 7, 1};
         int[] dr = new int[] {1, 1, 1, 1, 2};
         long[] trees = new long[dc.length];
@@ -85,11 +85,11 @@ class Day3
             }
         }
 
-        long partB = 1;
+        long partTwo = 1;
         for(long tree : trees)
         {
-            partB *= tree;
+            partTwo *= tree;
         }
-        System.out.println("Part B: " + partB);
+        System.out.println("Part Two: " + partTwo);
     }
 }

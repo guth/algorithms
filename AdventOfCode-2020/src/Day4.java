@@ -74,10 +74,10 @@ class Day4
             }
         }
         
-        System.out.println("Part A: " + count);
+        System.out.println("Part One: " + count);
 
-        // Part B!
-        int partB = 0;
+        // Part Two!
+        int partTwo = 0;
         for(Map<String, String> passport : passports)
         {
             // cid (Country ID) - ignored, missing or not.
@@ -149,14 +149,14 @@ class Day4
                     continue;
                 }
 
-                partB++;
+                partTwo++;
             }
             catch(Exception e)
             {
                 // Parsing failed somewhere. Don't count the passport!
             }
         }
-        System.out.println("Part A: " + count);
-        System.out.println("Part B: " + partB);
+        System.out.println("Part One: " + count);
+        System.out.println("Part Two: " + partTwo);
     }
 }

@@ -26,7 +26,7 @@ class Day1
         System.out.println("List size: " + nums.size());
 
 
-        // Part A
+        // Part One
         for(int i=0; i<nums.size(); i++)
         {
             for(int k=i+1; k<nums.size(); k++)
@@ -37,12 +37,12 @@ class Day1
                     System.out.println("nums[k]: " + nums.get(k));
 
                     long value = (long)(nums.get(i)) * nums.get(k);
-                    System.out.println("Part A: " + value);
+                    System.out.println("Part One: " + value);
                 }
             }
         }
 
-        // Part B
+        // Part Two
         for(int i=0; i<nums.size(); i++)
         {
             for(int k=i+1; k<nums.size(); k++)
@@ -56,7 +56,7 @@ class Day1
                         System.out.println("nums[j]: " + nums.get(j));
 
                         long value = (long)(nums.get(i)) * nums.get(k) * nums.get(j);
-                        System.out.println("Part B: " + value);
+                        System.out.println("Part Two: " + value);
                     }
                 }
             }
