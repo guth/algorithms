@@ -32,6 +32,12 @@ class Main
         // Regexes:
         String abc = "abc";
         boolean match = abc.matches("[a-c][a-c][a-c]");
+
+        // List to array
+        List<Integer> list = new ArrayList<Integer>();
+
+        int[] arr new int[list.size()];
+        arr = list.toArray(arr);
     }
 
     public class Team implements Comparable<Team>
