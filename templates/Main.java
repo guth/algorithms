@@ -33,6 +33,13 @@ class Main
         String abc = "abc";
         boolean match = abc.matches("[a-c][a-c][a-c]");
 
+        // Get the integers from: mem[9168] = 4143
+        Pattern pattern = Pattern.compile("mem\\[(\\d+)\\] = (\\d+)");
+        Matcher matcher = pattern.matcher(line);
+        matcher.find();
+        System.out.println(matcher.group(0));
+        System.out.println(matcher.group(1));
+        
         // List to array
         List<Integer> list = new ArrayList<Integer>();
 
