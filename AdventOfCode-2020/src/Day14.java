@@ -91,42 +91,50 @@ class Day14
         mask = "";
         map = new HashMap<Long, Long>();
 
-        Set<String> maskValues = new HashSet<String>();
+        Queue<Integer> xs = new LinkedList<Integer>();
 
         for(Operation op : ops)
         {
             if(op.type.equals("mask"))
             {
+                xs = new LinkedList<Integer>();
                 mask = op.mask;
+                char[] c = mask.toCharArray();
+                for(int i=0; i<c.length; i++)
+                {
+                    if(c[i] == 'X')
+                    {
+                        xs.add(i);
+                        c[i] = '0';
+                    }
+                }
+                mask = new String(c);
+                // System.out.println("xs: " + xs);
             }
             else
             {
                 long key = op.key;
                 long value = op.value;
+                key |= Long.parseLong(mask, 2);
 
-                String binaryKey = Long.toBinaryString(key);
-                while(binaryKey.length() < 36)
-                    binaryKey = "0" + binaryKey;
-                System.out.println("binary: " + binaryKey);
-
-                char[] c = binaryKey.toCharArray();
-                for(int i=0; i<c.length; i++)
+                Queue<Integer> xsCopy = new LinkedList(xs);
+                Set<Long> allKeys = this.getAllKeys(key, xsCopy);
+                for(Long v : allKeys)
                 {
-                    if(mask.charAt(i) == '1')
-                        c[i] = '1';
-                    else if(mask.charAt(i) == 'X')
-                        c[i] = 'X';
-                }
-                System.out.println("c: " + new String(c));
+                    map.put(v, value);
+                    // System.out.println(Long.toBinaryString(v));
 
-                Set<String> allValues = this.getAllValues(c);
-                for(String v : allValues)
-                {
-                    long computedKey = Long.parseLong(v, 2);
-                    map.put(computedKey, value);
+                    // String sv = Long.toBinaryString(v);
+                    // while(sv.length() < 36)
+                        // sv = "0" + sv;
+                    // System.out.println(sv);
                 }
+
+                // System.out.println("allKeys: " + allKeys);
+
             }
         }
+        // System.out.println(map);
 
         long partTwo = 0;
         for(long key : map.keySet())
@@ -137,43 +145,36 @@ class Day14
         System.out.println("Part Two: " + partTwo);
     }
 
-    private Set<String> getAllValues(char[] c)
+    private Set<Long> getAllKeys(long key, Queue<Integer> xs)
     {
-        boolean done = true;
-        for(int i=0; i<c.length; i++)
-        {
-            if(c[i] == 'X')
-            {
-                done = false;
-                break;
-            }
-        }
+        Set<Long> keys = new HashSet<Long>();
 
-        Set<String> values = new HashSet<String>();
-        
-        if(done)
+        if(xs.isEmpty())
         {
-            values.add(new String(c));
+            keys.add(key);
         }
         else
         {
-            for(int i=0; i<c.length; i++)
-            {
-                if(c[i] == 'X')
-                {
-                    char[] copy1 = this.copyArray(c);
-                    char[] copy2 = this.copyArray(c);
-                    copy1[i] = '0';
-                    copy2[i] = '1';
+            int i = xs.poll();
+            Queue<Integer> copy1 = new LinkedList(xs);
+            Queue<Integer> copy2 = new LinkedList(xs);
 
-                    values.addAll(this.getAllValues(copy1));
-                    values.addAll(this.getAllValues(copy2));
-                }
-            }
+            // i'th bit set to 0
+            long key1 = key & ~(1L << (35-i));
+
+            // i'th bit set to 1
+            long key2 = key | (1L << (35-i));
+
+            keys.addAll(this.getAllKeys(key1, copy1));
+            keys.addAll(this.getAllKeys(key2, copy2));
         }
 
-        return values;
+        return keys;
     }
+// i
+// 0  1  2  3  4 5 6 7
+// pow
+// 12864 32 16 8 4 2 1
 
     private char[] copyArray(char[] c)
     {
