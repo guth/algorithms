@@ -45,6 +45,7 @@ class Day14
         // System.out.println(ops);
         String mask = "";
 
+        // Part One
         Map<Long, Long> map = new HashMap<Long, Long>();
 
         for(Operation op : ops)
@@ -85,6 +86,103 @@ class Day14
         }
 
         System.out.println("Part One: " + partOne);
+
+        // Part Two. Hm.
+        mask = "";
+        map = new HashMap<Long, Long>();
+
+        Set<String> maskValues = new HashSet<String>();
+
+        for(Operation op : ops)
+        {
+            if(op.type.equals("mask"))
+            {
+                mask = op.mask;
+            }
+            else
+            {
+                long key = op.key;
+                long value = op.value;
+
+                String binaryKey = Long.toBinaryString(key);
+                while(binaryKey.length() < 36)
+                    binaryKey = "0" + binaryKey;
+                System.out.println("binary: " + binaryKey);
+
+                char[] c = binaryKey.toCharArray();
+                for(int i=0; i<c.length; i++)
+                {
+                    if(mask.charAt(i) == '1')
+                        c[i] = '1';
+                    else if(mask.charAt(i) == 'X')
+                        c[i] = 'X';
+                }
+                System.out.println("c: " + new String(c));
+
+                Set<String> allValues = this.getAllValues(c);
+                for(String v : allValues)
+                {
+                    long computedKey = Long.parseLong(v, 2);
+                    map.put(computedKey, value);
+                }
+            }
+        }
+
+        long partTwo = 0;
+        for(long key : map.keySet())
+        {
+            partTwo += map.get(key);
+        }
+
+        System.out.println("Part Two: " + partTwo);
+    }
+
+    private Set<String> getAllValues(char[] c)
+    {
+        boolean done = true;
+        for(int i=0; i<c.length; i++)
+        {
+            if(c[i] == 'X')
+            {
+                done = false;
+                break;
+            }
+        }
+
+        Set<String> values = new HashSet<String>();
+        
+        if(done)
+        {
+            values.add(new String(c));
+        }
+        else
+        {
+            for(int i=0; i<c.length; i++)
+            {
+                if(c[i] == 'X')
+                {
+                    char[] copy1 = this.copyArray(c);
+                    char[] copy2 = this.copyArray(c);
+                    copy1[i] = '0';
+                    copy2[i] = '1';
+
+                    values.addAll(this.getAllValues(copy1));
+                    values.addAll(this.getAllValues(copy2));
+                }
+            }
+        }
+
+        return values;
+    }
+
+    private char[] copyArray(char[] c)
+    {
+        char[] copy = new char[c.length];
+        for(int i=0; i<c.length; i++)
+        {
+            copy[i] = c[i];
+        }
+        return copy;
     }
 
     public class Operation
